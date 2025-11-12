@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 调研论文导航</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a202c;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px 10px;
+        }
+
+        h1 { font-size: 2.6em; margin-bottom: 12px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); font-weight: 700; }
+        .subtitle { font-size: 1.15em; opacity: 0.95; line-height: 1.6; max-width: 800px; margin: 0 auto; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+        .project-card:hover::before { transform: scaleX(1); }
+
+        .card-header { display: flex; align-items: flex-start; margin-bottom: 16px; gap: 14px; }
+        .card-icon { font-size: 2.2em; }
+
+        .card-title {
+            font-size: 1.35em;
+            font-weight: 700;
+            color: #1a202c;
+            line-height: 1.35;
+            overflow-wrap: anywhere; /* 长标题优雅换行 */
+        }
+
+        .card-description { color: #4a5568; line-height: 1.8; font-size: 1.02em; margin-top: 12px; }
+
+        .status-badge {
+            position: absolute; top: 20px; right: 20px; padding: 8px 12px; border-radius: 18px; font-size: 0.85em; font-weight: 600;
+            background: #d4edda; color: #155724;
+        }
+
+        .coming-soon { opacity: 0.6; pointer-events: none; }
+
+        footer { text-align: center; color: white; margin-top: 50px; padding: 20px; opacity: 0.9; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 调研论文导航</h1>
+            <p class="subtitle">收集并整理已调研论文的网页链接与资料，布局参考主页风格，持续更新。</p>
+        </header>
+
+        <div class="projects-grid">
+            <!-- 第一个条目：长论文题目（同步更名） -->
+            <a class="project-card" href="Hybrid_Transformer_Based_Multi-Agent_Reinforcement_Learning_for_Multiple_Unpiloted_Aerial_Vehicle_Coordination_in_Air_Corridors/index.html">
+                <span class="status-badge">✓ 已收录</span>
+                <div class="card-header">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title">Hybrid Transformer-Based Multi-Agent Reinforcement Learning for Multiple Unpiloted Aerial Vehicle Coordination in Air Corridors</div>
+                </div>
+                <div class="card-description">
+                    在空中走廊场景中，提出混合 Transformer 的多智能体强化学习框架，
+                    面向多无人机协同与冲突规避；涵盖环境建模、策略学习（PPO/SAC）、
+                    编队与路径规划的仿真评估与指标对比。
+                </div>
+            </a>
+
+            <!-- 占位：未完待续 -->
+            <div class="project-card coming-soon">
+                <span class="status-badge" style="background:#e2e8f0;color:#4a5568;">📋 计划中</span>
+                <div class="card-header">
+                    <div class="card-icon">📝</div>
+                    <div class="card-title">未完待续：更多调研论文链接将陆续补充</div>
+                </div>
+                <div class="card-description">
+                    敬请期待更多论文条目（网页、PDF、代码仓库等）。
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>最后更新：<span id="last-update">——</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // 进入动画与最后更新时间
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+
+            var el = document.getElementById('last-update');
+            if (el) {
+                var d = new Date();
+                var pad = (n) => (n < 10 ? '0' + n : n);
+                var ts = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) +
+                         ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+                el.textContent = ts;
+            }
+        });
+    </script>
+</body>
+</html>
